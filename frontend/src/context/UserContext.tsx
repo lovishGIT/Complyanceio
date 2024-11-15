@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 
 export interface User {
     id: string;
@@ -10,8 +10,22 @@ export interface User {
 
 export const UserContext = createContext<{
     user: User | null;
-    setUser: (user: User | null) => void;
+    setUser: (user: User) => void;
 }>({
     user: null,
     setUser: () => {},
 });
+
+export const UserProvider = ({
+    children,
+}: {
+    children: ReactNode;
+}) => {
+    const [user, setUser] = useState<User | null>(null);
+
+    return (
+        <UserContext.Provider value={{ user, setUser }}>
+            {children}
+        </UserContext.Provider>
+    );
+};
