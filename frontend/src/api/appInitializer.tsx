@@ -25,11 +25,15 @@ const AppInitializer = ({
                     setUser(response.data.data);
                 }
             } catch (err) {
-                if (err.response?.status === 401) {
-                    setUser(null);
-                } else if (err.response?.status === 500) {
-                    console.error('Failed to fetch user:', err);
-                    setUser(null);
+                if (axios.isAxiosError(err)) {
+                    if (err.response?.status === 401) {
+                        setUser(null);
+                    } else if (err.response?.status === 500) {
+                        console.error('Failed to fetch user:', err);
+                        setUser(null);
+                    } else {
+                        console.error('Unexpected error:', err);
+                    }
                 } else {
                     console.error('Unexpected error:', err);
                 }
