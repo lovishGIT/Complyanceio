@@ -1,0 +1,151 @@
+import { Request, Response, NextFunction } from 'express';
+import User from '../models/user.model';
+import {
+    generateAccessToken,
+    generateRefreshToken,
+} from '../utils/generateToken.util';
+import { IUser } from '../types/userTypes';
+import asyncHandler from '../utils/asyncHandler.util';
+
+export const registerUser = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { username, email, password, country } = req.body;
+        if (!username || !email || !password || !country) {
+            return res.status(400).json({
+                message: 'Please provide all required fields',
+            });
+        }
+
+        const existingUser = await User.findOne({
+            $or: [{ email }, { username }],
+        });
+        if (existingUser) {
+            return res.status(400).json({
+                message: 'User Already Exists',
+                data: existingUser,
+            });
+        }
+
+        const user: IUser | null = await User.create({
+            username,
+            email,
+            password,
+            country,
+            role: 'User',
+        });
+        if (!user) {
+            return res.status(400).json({
+                message: 'Error creating user',
+            });
+        }
+
+        req.user = {
+            _id: user._id,
+            role: user.role,
+        };
+        req.statusCode = 201;
+        req.body = {
+            success: true,
+            message: 'User registered successfully',
+            data: user.getSendableUser(),
+        };
+
+        return generateTokens(req, res, next);
+    }
+);
+
+export const loginUser = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { email, password } = req.body;
+        const user: IUser | null = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found.',
+            });
+        }
+
+        if (!(await user.checkPassword(password))) {
+            return res.status(400).json({
+                message: 'Invalid Password.',
+            });
+        }
+
+        req.user = {
+            _id: user._id,
+            role: user.role,
+        };
+
+        req.statusCode = 200;
+        req.body = {
+            success: true,
+            message: 'Login Successful',
+            data: user.getSendableUser(),
+        };
+
+        return generateTokens(req, res, next);
+    }
+);
+
+export const logoutUser = asyncHandler(
+    async (req: Request, res: Response) => {
+        if (!req.user) {
+            return res.status(401).json({
+                message: 'Unauthorized',
+            });
+        }
+
+        await User.findByIdAndUpdate(
+            { _id: req.user._id },
+            { refreshToken: '' }
+        );
+
+        return res
+            .status(200)
+            .clearCookie('accessToken')
+            .clearCookie('refreshToken')
+            .json({
+                message: 'Logout Successful',
+            });
+    }
+);
+
+export const generateTokens = asyncHandler(
+    async (
+        req: Request,
+        res: Response,
+    ) => {
+        if (!req.user) {
+            return res.status(401).json({
+                message: 'Unauthorized',
+            });
+        }
+
+        const accessToken = generateAccessToken(req.user);
+        const refreshToken = generateRefreshToken(req.user);
+
+        User.findByIdAndUpdate(
+            { _id: req.user._id },
+            { refreshToken }
+        ).catch((err) => {
+            console.error('Error updating refresh token in DB:', err);
+        });
+
+        if ((req.body && !req.statusCode) || (req.statusCode && !req.body)) {
+            console.error('Developer Error Alert: Request Object is not properly formatted');
+            return res.status(500).json({
+                message: 'Internal Server Error',
+            });
+        } // Request Manupilation Cyber Attack Prevention
+
+        return res
+            .cookie('accessToken', accessToken, { httpOnly: true })
+            .cookie('refreshToken', refreshToken, { httpOnly: true })
+            .status(req.statusCode || 200)
+            .json(
+                req.body || {
+                    message: 'Token generated successfully',
+                }
+            );
+    }
+);
