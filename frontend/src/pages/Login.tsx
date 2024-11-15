@@ -22,10 +22,7 @@ const LoginRegisterPage: React.FC = () => {
                 : '/api/user/register';
 
             const response = await axios.post(endpoint, formData);
-            document.cookie = `accessToken=${response.data.accessToken}; path=/`;
-            document.cookie = `refreshToken=${response.data.refreshToken}; path=/`;
 
-            // console.log(response.data.data);
             setUser(response.data.data);
             navigate('/');
         } catch (error) {

@@ -10,7 +10,7 @@ export interface User {
 
 export const UserContext = createContext<{
     user: User | null;
-    setUser: (user: User) => void;
+    setUser: (user: User | null) => void;
 }>({
     user: null,
     setUser: () => {},

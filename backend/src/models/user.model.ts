@@ -15,7 +15,7 @@ const userSchema: Schema<IUser> = new Schema({
     },
     country: {
         type: String,
-        required: true
+        required: true,
     },
     password: {
         type: String,
@@ -24,10 +24,13 @@ const userSchema: Schema<IUser> = new Schema({
     },
     refreshToken: {
         type: String,
+        unique: true,
+        sparse: true,
+        required: false,
     },
     role: {
         type: String,
-        enum: ["User", "Moderator", "Admin"],
+        enum: ['User', 'Moderator', 'Admin'],
     },
 });
 

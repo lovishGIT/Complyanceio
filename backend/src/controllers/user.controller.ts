@@ -97,7 +97,7 @@ export const logoutUser = asyncHandler(
 
         await User.findByIdAndUpdate(
             { _id: req.user._id },
-            { refreshToken: '' }
+            { refreshToken: null }
         );
 
         return res
@@ -147,5 +147,42 @@ export const generateTokens = asyncHandler(
                     message: 'Token generated successfully',
                 }
             );
+    }
+);
+
+export const getUserByToken = asyncHandler(
+    async (req: Request, res: Response) => {
+        if (!req.user) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'User found',
+            data: user,
+        });
+    }
+);
+
+export const getUserById = asyncHandler(
+    async (req: Request, res: Response) => {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'User found',
+            data: user,
+        });
     }
 );

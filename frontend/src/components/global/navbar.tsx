@@ -1,9 +1,26 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
+
+    const handleLogout = async () => {
+
+        const logout = await axios.get(
+            'http://localhost:3000/api/user/logout', {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        if (!logout) {
+            return console.error('Failed to logout');
+        }
+        setUser(null);
+    };
 
     return (
         <nav className="bg-gray-800 p-4">
@@ -39,20 +56,29 @@ const Navbar: React.FC = () => {
                         Contact
                     </Link>
                     {user ? (
-                        <select
-                            name="country"
-                            className="text-gray-300 bg-gray-800 hover:text-white"
-                            value={user.country}
-                            onChange={(e) => {
-                                console.log(user);
-                                setUser({...user, country: e.target.value });
-                            }}
-                        >
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="UK">UK</option>
-                            <option value="China">China</option>
-                        </select>
+                        <>
+                            <select
+                                name="country"
+                                className="text-gray-300 bg-gray-800 hover:text-white"
+                                value={user.country}
+                                onChange={(e) => {
+                                    // console.log(user);
+                                    setUser({
+                                        ...user,
+                                        country: e.target.value,
+                                    });
+                                }}
+                            >
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                                <option value="China">China</option>
+                            </select>
+
+                            <button className='text-black bg-white py-2 px-4 rounded-full' onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </>
                     ) : (
                         <Link
                             to="/login"
