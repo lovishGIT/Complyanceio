@@ -10,56 +10,65 @@ const allowedOrigins = [
     'http://localhost:5173',
     'https://complyanceio.vercel.app',
     env.FRONTEND_URL,
-];
+].filter(Boolean); // Remove any undefined values
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            // Allow requests with no origin (e.g., server-to-server or Postman)
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                // Return a proper error response for disallowed origins
-                callback(null, false); // Reject but gracefully
-            }
-        },
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    })
-);
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) {
+            return callback(null, true);
+        }
 
-// app.options('*', cors()); // Preflight request handler
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log(`Blocked origin: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With',
+    ],
+    exposedHeaders: ['set-cookie'],
+    maxAge: 86400, // 24 hours
+};
+
+// Apply CORS middleware first
+app.use(cors(corsOptions));
+
+// Logging middleware
 app.use((req, res, next) => {
-    console.log(`Request Origin: ${req.headers.origin}`);
-    console.log(`Request Method: ${req.method}`);
+    console.log(
+        `${new Date().toISOString()} - ${req.method} ${req.path}`
+    );
+    console.log(`Origin: ${req.headers.origin}`);
     next();
 });
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        res.header(
-            'Access-Control-Allow-Origin',
-            req.headers.origin || ''
-        );
-        res.header('Access-Control-Allow-Credentials', 'true');
-        res.header(
-            'Access-Control-Allow-Methods',
-            'GET, POST, PUT, DELETE, OPTIONS'
-        );
-        res.header(
-            'Access-Control-Allow-Headers',
-            'Content-Type, Authorization, X-Requested-With'
-        );
-        res.sendStatus(200); // Respond OK to preflight
-    } else {
-        next();
-    }
-});
 
+// Parse cookies and JSON body before routes
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 
+// Error handling middleware for CORS errors
+app.use((err, req, res, next) => {
+    if (err.message === 'Not allowed by CORS') {
+        res.status(403).json({
+            error: 'CORS Error',
+            message:
+                'This origin is not allowed to access this resource',
+        });
+    } else {
+        next(err);
+    }
+});
+
+// Routes
 app.use('/api', routes);
 
 export default app;
