@@ -9,6 +9,7 @@ router.route("/find/:id").get(verifyJWT, userController.getUserById);
 
 router.route("/register").post(userController.registerUser);
 router.route("/login").post(userController.loginUser);
+router.route("/country").post(userController.updateUser); // Assignment
 router.route("/update/:id").patch(verifyJWT, userController.updateUser);
 
 router.route("/logout").get(verifyJWT, userController.logoutUser);

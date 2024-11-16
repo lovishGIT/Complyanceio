@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormData } from '../../types/user';
+import axios from 'axios';
+import { Country } from '../../types/country';
 
 interface RegisterFormProps {
     onSubmit: (formData: FormData) => void;
@@ -12,9 +14,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         password: '',
         country: '',
     });
+    const [countries, setCountries] = useState([]);
 
     const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -26,6 +29,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         e.preventDefault();
         onSubmit(formData);
     };
+
+    useEffect(() => {
+        const getCountries = async () => {
+            const response = await axios.get(`http://localhost:3000/api/country`);
+            console.log(response.data.countries);
+            setCountries(response.data.countries || []);
+        };
+        getCountries();
+    }, [countries]);
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -53,15 +66,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
                 >
                     Country
                 </label>
-                <input
-                    type="text"
+
+                <select
                     id="country"
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                    placeholder="Enter your country"
-                />
+                >
+                    {countries.map((country: Country) => (
+                        <option key={country._id} value={country.name}> {country.name} </option>
+                    ))}
+                </select>
             </div>
             <div className="mb-4">
                 <label

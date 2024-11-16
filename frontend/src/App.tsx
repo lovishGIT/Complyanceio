@@ -3,14 +3,16 @@ import {
     Route,
     Routes,
 } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
 import DefaultLayout from './layouts/defaultLayout';
 import { User, UserContext } from './context/UserContext';
 import { useState } from 'react';
 import AppInitializer from './api/appInitializer';
+
+import Home from './pages/Home';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import CountryManagement from './pages/countryManagement';
+import DataManagement from './pages/dataManagement';
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
@@ -29,6 +31,10 @@ function App() {
                             <Route
                                 path="/update"
                                 element={<CountryManagement />}
+                            />
+                            <Route
+                                path="/data"
+                                element={<DataManagement />}
                             />
                             <Route path="*" element={<NotFound />} />
                         </Routes>

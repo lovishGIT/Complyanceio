@@ -59,17 +59,12 @@ const Navbar: React.FC = () => {
                         </Link>
                     )}
                     <Link
-                        to="#services"
+                        to="/data"
                         className="text-gray-300 hover:text-white"
                     >
-                        Services
+                        Data
                     </Link>
-                    <Link
-                        to="#contact"
-                        className="text-gray-300 hover:text-white"
-                    >
-                        Contact
-                    </Link>
+
                     {user ? (
                         <>
                             <select

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Country } from '../types/country';
-import CountryForm from '../components/Country/countryform';
+import CountryForm from '../components/Country/countryForm';
 import CountryRow from '../components/Country/countryRow';
 
 const CountryManagement: React.FC = () => {
