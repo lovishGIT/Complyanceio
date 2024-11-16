@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState } from 'react';
 
 export interface User {
     _id: string;
@@ -16,11 +16,7 @@ export const UserContext = createContext<{
     setUser: () => {},
 });
 
-export const UserProvider = ({
-    children,
-}: {
-    children: ReactNode;
-}) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
 
     return (
