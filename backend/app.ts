@@ -9,7 +9,7 @@ const app = express();
 app.use(
     cors({
         origin: [
-            'https://complyanceio.onrender.com',
+            'https://complyanceio.vercel.app',
             'http://localhost:5173',
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
