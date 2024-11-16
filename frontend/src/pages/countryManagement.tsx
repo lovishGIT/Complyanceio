@@ -23,7 +23,7 @@ const CountryManagement: React.FC = () => {
     const fetchCountries = async () => {
         try {
             const response = await axios.get(
-                'https://complyanceio-api.vercel.app/api/country',
+                'https://complyanceio.onrender.com/api/country',
                 {
                     withCredentials: true,
                     headers: {
@@ -40,7 +40,7 @@ const CountryManagement: React.FC = () => {
     const handleAddCountry = async (countryData: Country) => {
         try {
             const response = await axios.post(
-                'https://complyanceio-api.vercel.app/api/country/add',
+                'https://complyanceio.onrender.com/api/country/add',
                 countryData,
                 {
                     headers: {
@@ -63,7 +63,7 @@ const CountryManagement: React.FC = () => {
     const handleDeleteCountry = async (id: string) => {
         try {
             await axios.delete(
-                `https://complyanceio-api.vercel.app/api/country/${id}`,
+                `https://complyanceio.onrender.com/api/country/${id}`,
                 {
                     withCredentials: true,
                 }
@@ -81,7 +81,7 @@ const CountryManagement: React.FC = () => {
     ) => {
         try {
             const response = await axios.patch(
-                `https://complyanceio-api.vercel.app/api/country/${updatedData._id}`,
+                `https://complyanceio.onrender.com/api/country/${updatedData._id}`,
                 updatedData,
                 {
                     headers: { 'Content-Type': 'application/json' },

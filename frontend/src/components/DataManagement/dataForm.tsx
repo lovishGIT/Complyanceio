@@ -46,7 +46,7 @@ const DataForm: React.FC<DataFormProps> = ({
         const fetchCountries = async () => {
             try {
                 const response = await axios.get(
-                    'https://complyanceio-api.vercel.app/api/country',
+                    'https://complyanceio.onrender.com/api/country',
                     {
                         withCredentials: true,
                         headers: {

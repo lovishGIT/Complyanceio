@@ -24,12 +24,13 @@ apiClient.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 await axios.post(
-                    'https://complyanceio-api.vercel.app/api/auth/refresh_token',
+                    'https://complyanceio.onrender.com/api/auth/refresh_token',
                     {},
                     {
-                        withCredentials: true, headers: {
+                        withCredentials: true,
+                        headers: {
                             'Content-Type': 'application/json',
-                            "Access-Control-Allow-Origin": "*",
+                            'Access-Control-Allow-Origin': '*',
                         },
                     }
                 );

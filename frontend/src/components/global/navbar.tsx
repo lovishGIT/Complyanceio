@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 
     const handleLogout = async () => {
         const logout = await axios.get(
-            'https://complyanceio-api.vercel.app/api/user/logout',
+            'https://complyanceio.onrender.com/api/user/logout',
             {
                 withCredentials: true,
                 headers: {
@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
                                         return;
                                     } // SQL / NO-SQL Injection Prevention
                                     await axios.patch(
-                                        `https://complyanceio-api.vercel.app/api/user/update/${user._id}`,
+                                        `https://complyanceio.onrender.com/api/user/update/${user._id}`,
                                         {
                                             country: value,
                                         },
