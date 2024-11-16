@@ -166,8 +166,14 @@ export const generateTokens = asyncHandler(
         } // Request Manupilation Cyber Attack Prevention
 
         return res
-            .cookie('accessToken', accessToken, { httpOnly: true })
-            .cookie('refreshToken', refreshToken, { httpOnly: true })
+            .cookie('accessToken', accessToken, {
+                httpOnly: true,
+                sameSite: 'none',
+            })
+            .cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                sameSite: 'none',
+            })
             .status(req.statusCode || 200)
             .json(
                 req.body || {
