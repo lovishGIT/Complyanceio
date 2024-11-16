@@ -169,10 +169,12 @@ export const generateTokens = asyncHandler(
             .cookie('accessToken', accessToken, {
                 httpOnly: true,
                 sameSite: 'none',
+                secure: true,
             })
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'none',
+                secure: true,
             })
             .status(req.statusCode || 200)
             .json(

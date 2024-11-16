@@ -13,7 +13,7 @@ const AppInitializer = ({
         const fetchUser = async () => {
             try {
                 const response = await axios.get(
-                    // 'https://localhost:3000/api/user/verify_token'
+                    // 'http://localhost:3000/api/user/verify_token',
                     'https://complyanceio.onrender.com/api/user/verify_token',
                     {
                         withCredentials: true,
