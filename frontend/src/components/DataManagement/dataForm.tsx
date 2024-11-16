@@ -51,7 +51,6 @@ const DataForm: React.FC<DataFormProps> = ({
                         withCredentials: true,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*',
                         },
                     }
                 );

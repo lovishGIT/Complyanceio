@@ -26,6 +26,9 @@ const CountryManagement: React.FC = () => {
                 'https://complyanceio-api.vercel.app/api/country',
                 {
                     withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 }
             );
             setCountries(response.data.countries || []);

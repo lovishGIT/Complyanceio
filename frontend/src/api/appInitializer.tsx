@@ -19,7 +19,6 @@ const AppInitializer = ({
                         withCredentials: true,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*',
                         },
                     }
                 );

@@ -6,17 +6,27 @@ import env from './src/config/validateENV.config.js';
 
 const app = express();
 
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://complyanceio.vercel.app',
+    env.FRONTEND_URL,
+];
+
 app.use(
     cors({
-        origin: [
-            'http://localhost:5173',
-            'https://complyanceio.vercel.app',
-            env.FRONTEND_URL,
-        ],
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true, // Allow cookies to be sent
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
     })
 );
+
+app.options('*', cors()); // Preflight request handler
 
 app.use(cookieParser());
 app.use(express.json());

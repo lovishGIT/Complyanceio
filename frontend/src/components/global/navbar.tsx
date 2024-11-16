@@ -33,7 +33,6 @@ const Navbar: React.FC = () => {
                         withCredentials: true,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*',
                         },
                     }
                 )
