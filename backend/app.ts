@@ -23,6 +23,10 @@ app.use(cookieParser());
 
 app.use('/api', routes);
 
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+});
+
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
