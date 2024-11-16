@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import LoginForm from '../components/Login/LoginForm';
 import RegisterForm from '../components/Login/RegisterForm';
 import { FormData } from '../types/user';
+import api from '../api/axiosInitializer';
 
 const LoginRegisterPage: React.FC = () => {
     const { setUser } = useContext(UserContext);
@@ -21,10 +21,10 @@ const LoginRegisterPage: React.FC = () => {
                 ? 'https://complyanceio-api.vercel.app/api/user/login'
                 : 'https://complyanceio-api.vercel.app/api/user/register';
 
-            const response = await axios.post(endpoint, formData, {
+            const response = await api.post(endpoint, formData, {
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
                 },
             });
 
