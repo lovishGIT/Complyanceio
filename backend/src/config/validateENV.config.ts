@@ -5,6 +5,7 @@ const env = cleanEnv(process.env, {
     PORT: num({
         default: 3000,
     }),
+    FRONTEND_URL: str(),
     MONGO_URI: str(),
     JWT_SECRET: str(),
     ACCESS_TOKEN_EXPIRY: str({

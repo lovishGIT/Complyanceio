@@ -2,11 +2,12 @@ import express from "express";
 import cors from "cors";
 import routes from "./src/routes/index";
 import cookieParser from "cookie-parser";
+import env from "./src/config/validateENV.config";
 
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", env.FRONTEND_URL],
     credentials: true,
 }));
 app.use(cookieParser());
