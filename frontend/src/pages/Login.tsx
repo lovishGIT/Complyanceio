@@ -4,9 +4,26 @@ import { UserContext } from '../context/UserContext';
 import LoginForm from '../components/Login/LoginForm';
 import RegisterForm from '../components/Login/RegisterForm';
 import { FormData } from '../types/user';
-import api from '../api/axiosInitializer';
+import axios from 'axios';
 
 const LoginRegisterPage: React.FC = () => {
+    axios.defaults.baseURL = 'https://complyanceio-api.vercel.app';
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.defaults.headers.patch['Content-Type'] = 'application/json';
+    axios.defaults.headers.put['Content-Type'] = 'application/json';
+    axios.defaults.headers.delete['Content-Type'] =
+        'application/json';
+    axios.defaults.headers.get['Access-Control-Allow-Origin'] =
+        'htttps://complyanceio-api.vercel.app';
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] =
+        'htttps://complyanceio-api.vercel.app';
+    axios.defaults.headers.patch['Access-Control-Allow-Origin'] =
+        'htttps://complyanceio-api.vercel.app';
+    axios.defaults.headers.put['Access-Control-Allow-Origin'] =
+        'htttps://complyanceio-api.vercel.app';
+    axios.defaults.headers.delete['Access-Control-Allow-Origin'] =
+        'htttps://complyanceio-api.vercel.app';
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [isLoginMode, setIsLoginMode] = useState(true);
@@ -21,7 +38,7 @@ const LoginRegisterPage: React.FC = () => {
                 ? 'https://complyanceio-api.vercel.app/api/user/login'
                 : 'https://complyanceio-api.vercel.app/api/user/register';
 
-            const response = await api.post(endpoint, formData, {
+            const response = await axios.post(endpoint, formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
