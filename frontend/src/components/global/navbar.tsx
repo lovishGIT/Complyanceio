@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 
     const handleLogout = async () => {
         const logout = await axios.get(
-            'https://complyanceio-backend.vercel.app/api/user/logout',
+            'https://complyanceio-api.vercel.app/api/user/logout',
             {
                 withCredentials: true,
                 headers: {
@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
         function fetchCountries() {
             axios
                 .get(
-                    'https://complyanceio-backend.vercel.app/api/country',
+                    'https://complyanceio-api.vercel.app/api/country',
                     {
                         withCredentials: true,
                     }
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
                                         return;
                                     } // SQL / NO-SQL Injection Prevention
                                     await axios.patch(
-                                        `https://complyanceio-backend.vercel.app/api/user/update/${user._id}`,
+                                        `https://complyanceio-api.vercel.app/api/user/update/${user._id}`,
                                         {
                                             country: value,
                                         },
