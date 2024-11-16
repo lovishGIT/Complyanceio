@@ -6,12 +6,12 @@ import { Country } from '../../types/country';
 
 const Navbar: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
-    const [ countries, setCountries] = useState([]);
+    const [countries, setCountries] = useState([]);
 
     const handleLogout = async () => {
-
         const logout = await axios.get(
-            'http://localhost:3000/api/user/logout', {
+            'https://complyanceio-backend.vercel.app/api/user/logout',
+            {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,13 +26,19 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         function fetchCountries() {
-            axios.get('http://localhost:3000/api/country', {
-                withCredentials: true,
-            }).then((response) => {
-                setCountries(response.data.countries || []);
-            }).catch((err) => {
-                console.error('Error fetching countries:', err);
-            });
+            axios
+                .get(
+                    'https://complyanceio-backend.vercel.app/api/country',
+                    {
+                        withCredentials: true,
+                    }
+                )
+                .then((response) => {
+                    setCountries(response.data.countries || []);
+                })
+                .catch((err) => {
+                    console.error('Error fetching countries:', err);
+                });
         }
         fetchCountries();
     }, []);
@@ -74,13 +80,17 @@ const Navbar: React.FC = () => {
                                 onChange={async (e) => {
                                     const value = e.target.value;
                                     if (typeof value !== 'string') {
-                                        console.error("Invalid country value");
+                                        console.error(
+                                            'Invalid country value'
+                                        );
                                         return;
                                     } // SQL / NO-SQL Injection Prevention
                                     await axios.patch(
-                                        `http://localhost:3000/api/user/update/${user._id}`, {
+                                        `https://complyanceio-backend.vercel.app/api/user/update/${user._id}`,
+                                        {
                                             country: value,
-                                        }, {
+                                        },
+                                        {
                                             withCredentials: true,
                                         }
                                     );
@@ -91,11 +101,20 @@ const Navbar: React.FC = () => {
                                 }}
                             >
                                 {countries.map((country: Country) => (
-                                    <option key={country._id} value={country.name}> {country.name} </option>
+                                    <option
+                                        key={country._id}
+                                        value={country.name}
+                                    >
+                                        {' '}
+                                        {country.name}{' '}
+                                    </option>
                                 ))}
                             </select>
 
-                            <button className='text-black bg-white py-2 px-4 rounded-full' onClick={handleLogout}>
+                            <button
+                                className="text-black bg-white py-2 px-4 rounded-full"
+                                onClick={handleLogout}
+                            >
                                 Logout
                             </button>
                         </>

@@ -28,7 +28,8 @@ const DataManagement: React.FC = () => {
         try {
             setIsLoading(true);
             const response = await axios.get<DataItem[]>(
-                'http://localhost:3000/api/data', {
+                'https://complyanceio-backend.vercel.app/api/data',
+                {
                     withCredentials: true,
                 }
             );
@@ -48,7 +49,7 @@ const DataManagement: React.FC = () => {
     const handleAdd = async (formData: Omit<DataItem, '_id'>) => {
         try {
             await axios.post(
-                'http://localhost:3000/api/data',
+                'https://complyanceio-backend.vercel.app/api/data',
                 formData,
                 {
                     withCredentials: true,
@@ -70,8 +71,9 @@ const DataManagement: React.FC = () => {
         if (!editingData) return;
         try {
             await axios.put(
-                `http://localhost:3000/api/data/${editingData._id}`,
-                formData, {
+                `https://complyanceio-backend.vercel.app/api/data/${editingData._id}`,
+                formData,
+                {
                     withCredentials: true,
                 }
             );
@@ -96,7 +98,8 @@ const DataManagement: React.FC = () => {
         ) {
             try {
                 await axios.delete(
-                    `http://localhost:3000/api/data/${id}`, {
+                    `https://complyanceio-backend.vercel.app/api/data/${id}`,
+                    {
                         withCredentials: true,
                     }
                 );

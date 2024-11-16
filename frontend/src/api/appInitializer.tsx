@@ -13,7 +13,9 @@ const AppInitializer = ({
         const fetchUser = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:3000/api/user/verify_token', {
+                    // 'https://localhost:3000/api/user/verify_token'
+                    'https://complyanceio-backend.vercel.app/api/user/verify_token',
+                    {
                         withCredentials: true,
                         headers: {
                             'Content-Type': 'application/json',

@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
-import routes from "./src/routes/index";
+import routes from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
-import env from "./src/config/validateENV.config";
+import env from "./src/config/validateENV.config.js";
 
 const app = express();
 

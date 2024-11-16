@@ -46,7 +46,7 @@ const DataForm: React.FC<DataFormProps> = ({
         const fetchCountries = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:3000/api/country',
+                    'https://complyanceio-backend.vercel.app/api/country',
                     { withCredentials: true }
                 );
                 setCountries(response.data.countries || []);

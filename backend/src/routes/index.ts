@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import userRouter from "./user.routes";
-import countryRouter from "./country.routes";
-import dataRouter from "./data.routes";
+import userRouter from './user.routes.js';
+import countryRouter from './country.routes.js';
+import dataRouter from './data.routes.js';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { RequestUser } from '../userTypes';
+import { RequestUser } from '../userTypes.js';
 
 declare global {
     namespace Express {

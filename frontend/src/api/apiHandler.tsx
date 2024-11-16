@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 await axios.post(
-                    'http://localhost:3000/api/auth/refresh_token',
+                    'https://complyanceio-backend.vercel.app/api/auth/refresh_token',
                     {},
                     { withCredentials: true }
                 );

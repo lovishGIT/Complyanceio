@@ -1,6 +1,6 @@
 import fs from "fs";
-import cloudinary from "../config/cloudinary";
-import env from "../config/validateENV.config";
+import cloudinary from '../config/cloudinary.js';
+import env from '../config/validateENV.config.js';
 
 export const uploadToCloudinary = async (filePath: string) => {
     try {

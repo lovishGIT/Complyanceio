@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import User from '../models/user.model';
+import User from '../models/user.model.js';
 import {
     generateAccessToken,
     generateRefreshToken,
-} from '../utils/generateToken.util';
-import { IUser } from '../types/userTypes';
-import asyncHandler from '../utils/asyncHandler.util';
+} from '../utils/generateToken.util.js';
+import { IUser } from '../types/userTypes.js';
+import asyncHandler from '../utils/asyncHandler.util.js';
 
 export const registerUser = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {

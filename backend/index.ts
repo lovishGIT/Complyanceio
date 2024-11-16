@@ -1,6 +1,6 @@
-import app from "./app";
-import connectDB from "./src/config/db.config";
-import env from "./src/config/validateENV.config";
+import app from "./app.js";
+import connectDB from "./src/config/db.config.js";
+import env from "./src/config/validateENV.config.js";
 
 const port: Number = env.PORT || 3000;
 

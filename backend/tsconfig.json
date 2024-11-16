@@ -1,24 +1,27 @@
 {
     "compilerOptions": {
-        "target": "ES6",
-        "module": "commonjs",
+        "module": "ESNext",
+        "target": "ESNext",
         "outDir": "./dist",
-        "rootDir": "./",
-        "strict": true,
         "esModuleInterop": true,
-        "skipLibCheck": true,
         "moduleResolution": "node",
-        "typeRoots": [
-            "node_modules/@types",
-            "src/types"
+        "moduleDetection": "force",
+        "skipLibCheck": true,
+        "lib": [
+            "ESNext",
+            "DOM"
         ],
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "baseUrl": ".", // Add this line
+        "rootDirs": [
+            ".",
+            "src"
+        ] // Add this line instead of rootDir
     },
     "include": [
-        "src/**/*.d.ts",
-        "./**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
+        "src/types/**/*.d.ts",
+        "src/**/*.ts",
+        "./*.ts" // This will include TS files in the root directory
     ]
 }

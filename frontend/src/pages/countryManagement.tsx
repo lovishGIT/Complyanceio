@@ -23,7 +23,8 @@ const CountryManagement: React.FC = () => {
     const fetchCountries = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:3000/api/country', {
+                'https://complyanceio-backend.vercel.app/api/country',
+                {
                     withCredentials: true,
                 }
             );
@@ -36,9 +37,12 @@ const CountryManagement: React.FC = () => {
     const handleAddCountry = async (countryData: Country) => {
         try {
             const response = await axios.post(
-                'http://localhost:3000/api/country/add',
-                countryData, {
-                    headers: { 'Content-Type': 'multipart/form-data' },
+                'https://complyanceio-backend.vercel.app/api/country/add',
+                countryData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
                     withCredentials: true,
                 }
             );
@@ -56,8 +60,9 @@ const CountryManagement: React.FC = () => {
     const handleDeleteCountry = async (id: string) => {
         try {
             await axios.delete(
-                `http://localhost:3000/api/country/${id}`, {
-                    withCredentials: true
+                `https://complyanceio-backend.vercel.app/api/country/${id}`,
+                {
+                    withCredentials: true,
                 }
             );
             setCountries((prev) =>
@@ -68,11 +73,14 @@ const CountryManagement: React.FC = () => {
         }
     };
 
-    const handleEditCountry = async (updatedData: Partial<Country>) => {
+    const handleEditCountry = async (
+        updatedData: Partial<Country>
+    ) => {
         try {
             const response = await axios.patch(
-                `http://localhost:3000/api/country/${updatedData._id}`,
-                updatedData, {
+                `https://complyanceio-backend.vercel.app/api/country/${updatedData._id}`,
+                updatedData,
+                {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
@@ -84,7 +92,9 @@ const CountryManagement: React.FC = () => {
             };
             setCountries((prev) =>
                 prev.map((country) =>
-                    country._id === updatedData._id ? newCountry : country
+                    country._id === updatedData._id
+                        ? newCountry
+                        : country
                 )
             );
             setIsEditing(null);
@@ -109,11 +119,17 @@ const CountryManagement: React.FC = () => {
             </div>
             {formVisible && (
                 <CountryForm
-                    initialData= {isEditing !== null ? isEditing : undefined}
-                    onSubmit={isEditing !== null ? handleEditCountry : handleAddCountry}
+                    initialData={
+                        isEditing !== null ? isEditing : undefined
+                    }
+                    onSubmit={
+                        isEditing !== null
+                            ? handleEditCountry
+                            : handleAddCountry
+                    }
                     onCancel={() => {
                         setIsEditing(null);
-                        setFormVisible(false)
+                        setFormVisible(false);
                     }}
                 />
             )}

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import Data from '../models/data.model';
-import asyncHandler from '../utils/asyncHandler.util';
-import User from '../models/user.model';
+import Data from '../models/data.model.js';
+import asyncHandler from '../utils/asyncHandler.util.js';
+import User from '../models/user.model.js';
 
 export const getData = asyncHandler(
     async (req: Request, res: Response) => {

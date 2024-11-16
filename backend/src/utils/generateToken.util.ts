@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import env from '../config/validateENV.config';
-import { RequestUser } from '../types/userTypes';
+import env from '../config/validateENV.config.js';
+import { RequestUser } from '../types/userTypes.js';
 
 export const generateAccessToken = (user: RequestUser): string => {
     return jwt.sign({

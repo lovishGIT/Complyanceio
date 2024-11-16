@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import * as dataController from '../controllers/data.controller';
-import verifyJWT from '../middlewares/verifyJWT';
+import * as dataController from '../controllers/data.controller.js';
+import verifyJWT from '../middlewares/verifyJWT.js';
 
 const router = Router();
 

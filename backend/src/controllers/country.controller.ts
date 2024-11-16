@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import Country from '../models/country.model';
+import Country from '../models/country.model.js';
 import {
     uploadToCloudinary,
     deleteFromCloudinary,
-} from '../utils/cloudinaryUploads.util';
-import asyncHandler from '../utils/asyncHandler.util';
+} from '../utils/cloudinaryUploads.util.js';
+import asyncHandler from '../utils/asyncHandler.util.js';
 
 export const getAllCountries = asyncHandler(
     async (req: Request, res: Response) => {

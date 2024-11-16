@@ -32,13 +32,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
     useEffect(() => {
         const getCountries = async () => {
-            const response = await axios.get(`http://localhost:3000/api/country`);
+            const response = await axios.get(
+                `https://complyanceio-backend.vercel.app/api/country`
+            );
             console.log(response.data.countries);
             setCountries(response.data.countries || []);
         };
         getCountries();
     }, [countries]);
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -75,7 +76,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 >
                     {countries.map((country: Country) => (
-                        <option key={country._id} value={country.name}> {country.name} </option>
+                        <option
+                            key={country._id}
+                            value={country.name}
+                        >
+                            {' '}
+                            {country.name}{' '}
+                        </option>
                     ))}
                 </select>
             </div>

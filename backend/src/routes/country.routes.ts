@@ -1,7 +1,7 @@
 import express from 'express';
-import * as CountryController from '../controllers/country.controller';
-import { upload } from '../middlewares/upload.multer';
-import verifyJWT from '../middlewares/verifyJWT';
+import * as CountryController from '../controllers/country.controller.js';
+import { upload } from '../middlewares/upload.multer.js';
+import verifyJWT from '../middlewares/verifyJWT.js';
 
 const router = express.Router();
 

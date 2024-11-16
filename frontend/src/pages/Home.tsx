@@ -5,18 +5,26 @@ import axios from 'axios';
 
 const Home: React.FC = () => {
     const { user } = useContext(UserContext);
-    const [imageLink, setImageLink] = useState<string>('../assets/india.png');
+    const [imageLink, setImageLink] = useState<string>(
+        '../assets/india.png'
+    );
 
     useEffect(() => {
         if (user) {
             const fetchImage = async () => {
-                const response = await axios.get(`http://localhost:3000/api/country/name/${user.country.toLowerCase()}`, {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
+                const response = await axios.get(
+                    `https://complyanceio-backend.vercel.app/api/country/name/${user.country.toLowerCase()}`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                     }
-                });
-                if (response?.data == null || response?.data?.country.image?.url == null) {
+                );
+                if (
+                    response?.data == null ||
+                    response?.data?.country.image?.url == null
+                ) {
                     setImageLink('../assets/india.png');
                     return;
                 }
@@ -32,14 +40,16 @@ const Home: React.FC = () => {
                 to={'/login'}
                 className="w-full h-full flex justify-center items-center text-3xl"
             >
-                <button className='bg-gray-800 hover:bg-gray-600 text-gray-200 hover:text-white py-2 px-4 rounded-xl'>Please Login!!!</button>
+                <button className="bg-gray-800 hover:bg-gray-600 text-gray-200 hover:text-white py-2 px-4 rounded-xl">
+                    Please Login!!!
+                </button>
             </Link>
         );
     }
 
     return (
         <div className="px-6 h-full flex justify-between items-center">
-            <div className='h-full flex flex-col space-y-2'>
+            <div className="h-full flex flex-col space-y-2">
                 <h1 className="text-2xl">
                     Welcome to Complyanceio, {user.username}!
                 </h1>
