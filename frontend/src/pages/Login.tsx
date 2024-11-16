@@ -7,23 +7,6 @@ import { FormData } from '../types/user';
 import axios from 'axios';
 
 const LoginRegisterPage: React.FC = () => {
-    axios.defaults.baseURL = 'https://complyanceio-api.vercel.app';
-    axios.defaults.withCredentials = true;
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-    axios.defaults.headers.patch['Content-Type'] = 'application/json';
-    axios.defaults.headers.put['Content-Type'] = 'application/json';
-    axios.defaults.headers.delete['Content-Type'] =
-        'application/json';
-    axios.defaults.headers.get['Access-Control-Allow-Origin'] =
-        'htttps://complyanceio-api.vercel.app';
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] =
-        'htttps://complyanceio-api.vercel.app';
-    axios.defaults.headers.patch['Access-Control-Allow-Origin'] =
-        'htttps://complyanceio-api.vercel.app';
-    axios.defaults.headers.put['Access-Control-Allow-Origin'] =
-        'htttps://complyanceio-api.vercel.app';
-    axios.defaults.headers.delete['Access-Control-Allow-Origin'] =
-        'htttps://complyanceio-api.vercel.app';
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [isLoginMode, setIsLoginMode] = useState(true);
