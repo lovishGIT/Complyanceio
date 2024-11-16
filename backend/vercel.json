@@ -1,26 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "dist/index.js",
-            "use": "@vercel/node",
-            "config": {
-                "includeFiles": [
-                    "dist/**"
-                ]
-            }
+    "functions": {
+        "api/**/*.ts": {
+            "runtime": "@vercel/node@latest"
         }
-    ],
+    },
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "/dist/index.js"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/dist/index.js"
+            "dest": "/api/$1",
+            "headers": {
+                "Access-Control-Allow-Origin": "https://complyanceio.vercel.app",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+                "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+            }
         }
-    ],
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist"
+    ]
 }
