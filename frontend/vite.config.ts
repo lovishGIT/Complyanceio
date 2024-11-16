@@ -7,7 +7,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: "https://complyanceio-api.vercel.app",
+                target: 'https://complyanceio.onrender.com',
                 changeOrigin: true,
                 secure: false,
             },
