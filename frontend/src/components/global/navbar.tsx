@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
         function fetchCountries() {
             axios
                 .get(
-                    'https://complyanceio-api.vercel.app/api/country',
+                    'https://complyanceio.onrender.com/api/country',
                     {
                         withCredentials: true,
                         headers: {
