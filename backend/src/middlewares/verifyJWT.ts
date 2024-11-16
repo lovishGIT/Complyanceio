@@ -4,6 +4,8 @@ import asyncHandler from '../utils/asyncHandler.util.js';
 import env from '../config/validateENV.config.js';
 
 const verifyJWT = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Verifying JWT', req.cookies.accessToken);
+
     const token = req.header('Authorization')?.split(' ')[1] || req.cookies.accessToken;
     if (!token) {
         return res.status(401).json({ message: 'Access Denied: No Token Provided!' });
