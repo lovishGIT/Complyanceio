@@ -18,8 +18,8 @@ const LoginRegisterPage: React.FC = () => {
     const handleLoginOrRegister = async (formData: FormData) => {
         try {
             const endpoint = isLoginMode
-                ? '/api/user/login'
-                : '/api/user/register';
+                ? 'https://complyanceio-api.vercel.app/api/user/login'
+                : 'https://complyanceio-api.vercel.app/api/user/register';
 
             const response = await axios.post(endpoint, formData, {
                 withCredentials: true,

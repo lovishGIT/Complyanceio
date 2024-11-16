@@ -23,7 +23,7 @@ const CountryManagement: React.FC = () => {
     const fetchCountries = async () => {
         try {
             const response = await axios.get(
-                '/api/country',
+                'https://complyanceio-api.vercel.app/api/country',
                 {
                     withCredentials: true,
                 }
