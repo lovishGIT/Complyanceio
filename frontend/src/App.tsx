@@ -13,9 +13,11 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import CountryManagement from './pages/countryManagement';
 import DataManagement from './pages/dataManagement';
+import axios from 'axios';
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
+    axios.defaults.withCredentials = true;
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

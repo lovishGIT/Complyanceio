@@ -24,7 +24,7 @@ const LoginRegisterPage: React.FC = () => {
             const response = await axios.post(endpoint, formData, {
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
                 },
             });
 
