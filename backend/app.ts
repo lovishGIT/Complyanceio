@@ -2,21 +2,30 @@ import express from 'express';
 import cors from 'cors';
 import routes from './src/routes/index.js';
 import cookieParser from 'cookie-parser';
-// import env from './src/config/validateENV.config.js';
 
 const app = express();
 
-app.use(cors({
-    origin: ["http://localhost:3000", "https://complyanceio.vercel.app"],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}));
+// Basic CORS setup
+app.use(
+    cors({
+        origin: [
+            'https://complyanceio.vercel.app',
+            'http://localhost:5173',
+        ],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+);
 
-app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('./public'));
+app.use(cookieParser());
 
 app.use('/api', routes);
+
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+});
 
 export default app;

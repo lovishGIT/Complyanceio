@@ -80,7 +80,7 @@ const DataManagement: React.FC = () => {
                     },
                 }
             );
-            fetchData();
+             fetchData();
             setEditingData(null);
             setShowForm(false);
         } catch (err) {

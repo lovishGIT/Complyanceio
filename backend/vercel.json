@@ -11,16 +11,16 @@
             }
         }
     ],
-    "routes": [
+    "headers": [
         {
-            "src": "/api/(.*)",
-            "dest": "/api/$1",
-            "headers": {
-                "Access-Control-Allow-Origin": "https://complyanceio.vercel.app",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST",
-                "Access-Control-Allow-Headers": "X-CSRF-Token,X-Requested-With,Accept,Accept-Version,Content-Length,Content-MD5,Content-Type,Date,X-Api-Version,Authorization,Cookie,Set-Cookie,Access-Cookie,Refresh-Token"
-            }
+            "source": "/api/(.*)",
+            "headers": [
+                { "key": "Access-Control-Allow-Origin", "value": "https://complyanceio.vercel.app" },
+                { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS,PATCH" },
+                { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization" },
+                { "key": "Access-Control-Allow-Credentials", "value": "true" }x
+            ]
         }
     ]
+
 }
