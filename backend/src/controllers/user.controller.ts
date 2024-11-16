@@ -87,6 +87,33 @@ export const loginUser = asyncHandler(
     }
 );
 
+export const updateUser = asyncHandler(
+    async (req: Request, res: Response) => {
+        if (req.user?._id?.toString() !== req.params.id.toString()) {
+            return res.status(403).json({
+                message: 'You are not authorized to perform this action',
+            });
+        }
+        const { username, email, country } = req.body;
+        const user = await User.findByIdAndUpdate({ _id: req.params.id }, {
+            username, email, country
+        }, {
+            new: true,
+        }) as IUser;
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+            });
+        }
+
+        return res.status(200).json({
+            message: 'User updated successfully',
+            data: user.getSendableUser(),
+        });
+    }
+);
+
 export const logoutUser = asyncHandler(
     async (req: Request, res: Response) => {
         if (!req.user) {

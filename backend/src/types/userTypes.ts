@@ -15,7 +15,7 @@ export interface IUser extends Document {
     password: string;
     country: string;
     role: string;
-    refreshToken?: string;
+    refreshToken?: string | null;
     checkPassword(enteredPassword: string): Promise<boolean>;
     isModified(path: string): boolean;
     getSendableUser(): SendableUser;

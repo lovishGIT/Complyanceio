@@ -18,10 +18,12 @@ const LoginRegisterPage: React.FC = () => {
     const handleLoginOrRegister = async (formData: FormData) => {
         try {
             const endpoint = isLoginMode
-                ? '/api/user/login'
-                : '/api/user/register';
+                ? 'http://localhost:3000/api/user/login'
+                : 'http://localhost:3000/api/user/register';
 
-            const response = await axios.post(endpoint, formData);
+            const response = await axios.post(endpoint, formData, {
+                withCredentials: true,
+            });
 
             setUser(response.data.data);
             navigate('/');

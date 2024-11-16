@@ -10,6 +10,7 @@ import DefaultLayout from './layouts/defaultLayout';
 import { User, UserContext } from './context/UserContext';
 import { useState } from 'react';
 import AppInitializer from './api/appInitializer';
+import CountryManagement from './pages/countryManagement';
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
@@ -24,6 +25,10 @@ function App() {
                             <Route
                                 path="/login"
                                 element={<Login />}
+                            />
+                            <Route
+                                path="/update"
+                                element={<CountryManagement />}
                             />
                             <Route path="*" element={<NotFound />} />
                         </Routes>

@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
+import { Country } from '../../types/country';
 
 const Navbar: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
+    const [ countries, setCountries] = useState([]);
 
     const handleLogout = async () => {
 
@@ -22,6 +24,19 @@ const Navbar: React.FC = () => {
         setUser(null);
     };
 
+    useEffect(() => {
+        function fetchCountries() {
+            axios.get('http://localhost:3000/api/country', {
+                withCredentials: true,
+            }).then((response) => {
+                setCountries(response.data.countries || []);
+            }).catch((err) => {
+                console.error('Error fetching countries:', err);
+            });
+        }
+        fetchCountries();
+    }, []);
+
     return (
         <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
@@ -37,7 +52,7 @@ const Navbar: React.FC = () => {
                     </Link>
                     {user?.role.toLowerCase() == 'admin' && (
                         <Link
-                            to="#about"
+                            to="/update"
                             className="text-gray-300 hover:text-white"
                         >
                             Update
@@ -61,18 +76,28 @@ const Navbar: React.FC = () => {
                                 name="country"
                                 className="text-gray-300 bg-gray-800 hover:text-white"
                                 value={user.country}
-                                onChange={(e) => {
-                                    // console.log(user);
+                                onChange={async (e) => {
+                                    const value = e.target.value;
+                                    if (typeof value !== 'string') {
+                                        console.error("Invalid country value");
+                                        return;
+                                    } // SQL / NO-SQL Injection Prevention
+                                    await axios.patch(
+                                        `http://localhost:3000/api/user/update/${user._id}`, {
+                                            country: value,
+                                        }, {
+                                            withCredentials: true,
+                                        }
+                                    );
                                     setUser({
                                         ...user,
-                                        country: e.target.value,
+                                        country: value,
                                     });
                                 }}
                             >
-                                <option value="India">India</option>
-                                <option value="USA">USA</option>
-                                <option value="UK">UK</option>
-                                <option value="China">China</option>
+                                {countries.map((country: Country) => (
+                                    <option key={country._id} value={country.name}> {country.name} </option>
+                                ))}
                             </select>
 
                             <button className='text-black bg-white py-2 px-4 rounded-full' onClick={handleLogout}>

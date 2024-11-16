@@ -24,9 +24,6 @@ const userSchema: Schema<IUser> = new Schema({
     },
     refreshToken: {
         type: String,
-        unique: true,
-        sparse: true,
-        required: false,
     },
     role: {
         type: String,
@@ -35,6 +32,9 @@ const userSchema: Schema<IUser> = new Schema({
 });
 
 userSchema.pre<IUser>('save', async function (next) {
+    if (this.isModified('refreshToken')) {
+        this.refreshToken = this.refreshToken?.toString()?.trim();
+    }
     if (!this.isModified('password')) {
         return next();
     }
