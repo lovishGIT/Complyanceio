@@ -12,7 +12,7 @@ app.use(
             'https://complyanceio.vercel.app',
             'http://localhost:5173',
         ],
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization'],
     })
