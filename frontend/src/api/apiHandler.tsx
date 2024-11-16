@@ -26,7 +26,12 @@ apiClient.interceptors.response.use(
                 await axios.post(
                     'https://complyanceio-api.vercel.app/api/auth/refresh_token',
                     {},
-                    { withCredentials: true }
+                    {
+                        withCredentials: true, headers: {
+                            'Content-Type': 'application/json',
+                            "Access-Control-Allow-Origin": "*",
+                        },
+                    }
                 );
 
                 return apiClient(originalRequest);

@@ -33,7 +33,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
     useEffect(() => {
         const getCountries = async () => {
             const response = await axios.get(
-                `https://complyanceio-api.vercel.app/api/country`
+                `https://complyanceio-api.vercel.app/api/country`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }
             );
             console.log(response.data.countries);
             setCountries(response.data.countries || []);

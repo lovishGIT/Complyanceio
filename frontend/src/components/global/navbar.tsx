@@ -31,6 +31,10 @@ const Navbar: React.FC = () => {
                     'https://complyanceio-api.vercel.app/api/country',
                     {
                         withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*',
+                        },
                     }
                 )
                 .then((response) => {

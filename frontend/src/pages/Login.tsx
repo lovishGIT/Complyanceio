@@ -23,6 +23,10 @@ const LoginRegisterPage: React.FC = () => {
 
             const response = await axios.post(endpoint, formData, {
                 withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
             });
 
             setUser(response.data.data);

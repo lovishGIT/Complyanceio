@@ -75,6 +75,10 @@ const DataManagement: React.FC = () => {
                 formData,
                 {
                     withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
                 }
             );
             fetchData();
