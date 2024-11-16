@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         if (user) {
             const fetchImage = async () => {
                 const response = await axios.get(
-                    `https://complyanceio-api.vercel.app/api/country/name/${user.country.toLowerCase()}`,
+                    `/api/country/name/${user.country.toLowerCase()}`,
                     {
                         withCredentials: true,
                         headers: {

@@ -14,7 +14,7 @@ const AppInitializer = ({
             try {
                 const response = await axios.get(
                     // 'https://localhost:3000/api/user/verify_token'
-                    'https://complyanceio-api.vercel.app/api/user/verify_token',
+                    '/api/user/verify_token',
                     {
                         withCredentials: true,
                         headers: {
