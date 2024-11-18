@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bcrypt from "bcryptjs";
 import { IUser } from '../types/userTypes.js';
 
@@ -60,5 +60,5 @@ userSchema.methods.getSendableUser = function () {
     }
 };
 
-const User = mongoose.model("user", userSchema);
+const User = model("user", userSchema);
 export default User;
